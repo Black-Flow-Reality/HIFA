@@ -1,0 +1,299 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaApplication1.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="750"
+        x:Class="AvaloniaApplication1.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="HIFA INTERFACE"
+        Background="#020617"
+        Foreground="#f1f5f9"
+        Width="1200" Height="750"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+        <!-- Mode toggler buttons -->
+        <Style Selector="Button.mode-btn">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#94a3b8" />
+            <Setter Property="Padding" Value="16,8" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Medium" />
+        </Style>
+        <Style Selector="Button.mode-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#1e293b" />
+            <Setter Property="TextBlock.Foreground" Value="#f1f5f9" />
+        </Style>
+        <Style Selector="Button.active-mode">
+            <Setter Property="Background" Value="#4f46e5" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.active-mode:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#6366f1" />
+            <Setter Property="TextBlock.Foreground" Value="White" />
+        </Style>
+
+        <!-- Train button (emerald) -->
+        <Style Selector="Button.train-btn">
+            <Setter Property="Background" Value="#059669" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Button.train-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#10b981" />
+            <Setter Property="TextBlock.Foreground" Value="White" />
+        </Style>
+
+        <!-- Predict button (indigo) -->
+        <Style Selector="Button.predict-btn">
+            <Setter Property="Background" Value="#4f46e5" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Button.predict-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#6366f1" />
+            <Setter Property="TextBlock.Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.predict-btn:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#1e293b" />
+            <Setter Property="TextBlock.Foreground" Value="#475569" />
+        </Style>
+    </Window.Styles>
+
+    <Grid ColumnDefinitions="260, *, 320">
+        <!-- 1. LEFT SIDEBAR: Model & Dataset Management -->
+        <Border Grid.Column="0" Background="#0f172a" BorderBrush="#1e293b" BorderThickness="0,0,1,0" Padding="16">
+            <Grid RowDefinitions="*, Auto">
+                <StackPanel Grid.Row="0" Spacing="24">
+                    <TextBlock Text="HIFA INTERFACE" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               LetterSpacing="1.5" 
+                               Foreground="#818cf8" 
+                               Margin="0,8,0,0"/>
+
+                    <StackPanel Spacing="16">
+                        <!-- Active Model select -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="ACTIVE MODEL" 
+                                       FontSize="10" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="#94a3b8" />
+                            <ComboBox ItemsSource="{Binding Models}" 
+                                      SelectedItem="{Binding SelectedModel}" 
+                                      HorizontalAlignment="Stretch" 
+                                      Background="#1e293b" 
+                                      BorderBrush="#334155" 
+                                      Foreground="#f1f5f9"
+                                      Padding="10,8"
+                                      CornerRadius="4" />
+                        </StackPanel>
+
+                        <!-- Loaded Dataset stats -->
+                        <Border Background="#121b2e" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="6" Padding="12">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Loaded Dataset" FontSize="11" Foreground="#94a3b8" />
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                    <TextBlock Text="{Binding DatasetImageCount}" FontSize="18" FontWeight="Medium" Foreground="#f1f5f9" />
+                                    <TextBlock Text=" Images" FontSize="18" FontWeight="Medium" Foreground="#f1f5f9" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Load & Save Model buttons -->
+                <StackPanel Grid.Row="1" Spacing="8" Margin="0,0,0,8">
+                    <Button Content="Load Model" 
+                            Command="{Binding LoadModelCommand}"
+                            HorizontalAlignment="Stretch" 
+                            HorizontalContentAlignment="Center"
+                            Background="#1e293b" 
+                            BorderBrush="#334155" 
+                            BorderThickness="1"
+                            Foreground="#cbd5e1"
+                            Padding="12"
+                            CornerRadius="4">
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#334155" />
+                                <Setter Property="TextBlock.Foreground" Value="White" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    
+                    <Button Content="Save Model" 
+                            Command="{Binding SaveModelCommand}"
+                            HorizontalAlignment="Stretch" 
+                            HorizontalContentAlignment="Center"
+                            Background="#1e293b" 
+                            BorderBrush="#334155" 
+                            BorderThickness="1"
+                            Foreground="#cbd5e1"
+                            Padding="12"
+                            CornerRadius="4">
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#334155" />
+                                <Setter Property="TextBlock.Foreground" Value="White" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 2. CENTER PANEL: Main Interactive Work Area -->
+        <Grid Grid.Column="1" RowDefinitions="56, *" Background="#020617">
+            <!-- Mode Toggler Header -->
+            <Border Grid.Row="0" BorderBrush="#1e293b" BorderThickness="0,0,0,1" Padding="20,0" Background="#0b0f19">
+                <Grid ColumnDefinitions="*, Auto">
+                    <!-- Mode Buttons -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Button Content="Training Mode"
+                                Command="{Binding SetTrainingModeCommand}"
+                                CommandParameter="True"
+                                Classes="mode-btn"
+                                Classes.active-mode="{Binding IsTrainingMode}" />
+                        
+                        <Button Content="Prediction Mode"
+                                Command="{Binding SetTrainingModeCommand}"
+                                CommandParameter="False"
+                                Classes="mode-btn"
+                                Classes.active-mode="{Binding IsPredictButtonEnabled}" />
+                    </StackPanel>
+
+                    <!-- Status -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <TextBlock Text="Status:" Foreground="#64748b" FontSize="12" FontFamily="Consolas, Courier New, monospace" />
+                        <TextBlock Text="{Binding StatusText}" Foreground="#cbd5e1" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas, Courier New, monospace" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Dynamic Workspace Container -->
+            <Grid Grid.Row="1" Margin="24">
+                <!-- Training Mode Dropzone Skeleton -->
+                <Button Command="{Binding SelectImagesCommand}"
+                        IsVisible="{Binding IsTrainingMode}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <!-- Dashed background border -->
+                                <Rectangle Stroke="#1e293b" 
+                                           StrokeDashArray="4, 4" 
+                                           StrokeThickness="2" 
+                                           RadiusX="12" 
+                                           RadiusY="12" 
+                                           Fill="#090d1f" />
+                                
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                                    <TextBlock Text="📁" FontSize="44" HorizontalAlignment="Center" Foreground="#818cf8" />
+                                    <TextBlock Text="Drag &amp; drop training images here" 
+                                               FontSize="15" 
+                                               FontWeight="Medium" 
+                                               Foreground="#f1f5f9" 
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="Supports PNG, JPG formats (Click to simulate loading)" 
+                                               FontSize="12" 
+                                               Foreground="#64748b" 
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!-- Prediction Mode Split Screen Skeleton -->
+                <Grid IsVisible="{Binding !IsTrainingMode}" ColumnDefinitions="*, *" ColumnSpacing="16">
+                    <Border Grid.Column="0" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="12" Background="#0b0f19">
+                        <Grid>
+                            <TextBlock Text="[ Input Test Image ]" 
+                                       Foreground="#64748b" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <Border Grid.Column="1" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="12" Background="#0b0f19">
+                        <Grid>
+                            <TextBlock Text="[ Model Prediction Output ]" 
+                                       Foreground="#64748b" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!-- 3. RIGHT PANEL: ML Action Buttons & Terminal Output -->
+        <Border Grid.Column="2" Background="#0b0f19" BorderBrush="#1e293b" BorderThickness="1,0,0,0" Padding="16">
+            <Grid RowDefinitions="*, Auto">
+                <StackPanel Grid.Row="0" Spacing="20">
+                    <TextBlock Text="EXECUTION" FontSize="11" FontWeight="Bold" Foreground="#94a3b8" LetterSpacing="1" Margin="0,8,0,0" />
+                    
+                    <Button Content="▶ Fit / Train Model"
+                            Command="{Binding TrainModelCommand}"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Height="48"
+                            CornerRadius="8"
+                            Classes="train-btn" />
+                    
+                    <Button Content="Run Prediction"
+                            Command="{Binding RunPredictionCommand}"
+                            IsEnabled="{Binding IsPredictButtonEnabled}"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Height="48"
+                            CornerRadius="8"
+                            Classes="predict-btn" />
+                </StackPanel>
+
+                <!-- Mock Terminal Log -->
+                <Grid Grid.Row="1" Height="240" RowDefinitions="36, *" Margin="0,0,0,8">
+                    <!-- Console Header -->
+                    <Border Grid.Row="0" Background="#0f172a" BorderBrush="#1e293b" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Padding="12,0">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBlock Grid.Column="0" Text="Console Output" FontSize="11" Foreground="#94a3b8" VerticalAlignment="Center" FontFamily="Consolas, Courier New, monospace" />
+                            <Ellipse Grid.Column="1" Width="8" Height="8" Fill="#f59e0b" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Console Body -->
+                    <Border Grid.Row="1" Background="#020617" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="0,0,8,8" Padding="12">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding ConsoleLogs}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" 
+                                                   Foreground="#cbd5e1" 
+                                                   FontFamily="Consolas, Courier New, monospace" 
+                                                   FontSize="11" 
+                                                   TextWrapping="Wrap" 
+                                                   Margin="0,0,0,6" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
