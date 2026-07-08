@@ -1,7 +1,14 @@
 
 # HIFA
 
-<<<<<<< HEAD
+## Overview
+HIFA is platform where users can create their own AI-GEN image models. This needs to have many different inputs from the user including images, description (labels), and AI properties like temperature, seeds, etc. 
+
+HIFA front-end is currently running on the Avalonia based on .NET 10 by Microsoft. 
+
+
+Before reading the guide below, please read and download [Avalonia][https://docs.avaloniaui.net/docs/get-started/install-avalonia] from the documentation/guide. 
+
 ## ▶️ Run the Avalonia app
 
 This project is an Avalonia desktop app targeting .NET 10. You can run it in two common ways:
@@ -11,7 +18,7 @@ This project is an Avalonia desktop app targeting .NET 10. You can run it in two
 From the repository root:
 
 ```bash
-cd /home/jimmy/HIFA
+cd "To the folder"
 dotnet build AvaloniaApplication1.sln
 dotnet run --project AvaloniaApplication1/AvaloniaApplication1.csproj
 ```
@@ -26,35 +33,12 @@ dotnet run --project AvaloniaApplication1/AvaloniaApplication1.csproj --no-build
 
 1. Open the folder in VS Code.
 2. Make sure the .NET SDK is installed and the C# extension is available.
-3. Open the Run and Debug view.
-4. Start the app with F5 or the Run button.
-5. If VS Code prompts you to select a debugger, choose the .NET option for the project.
+3. Select *program.cs* on the explorer in VSCode (HIFA/AvaloniaApplication1/Program.cs)
+4. Open the Run and Debug view.
+5. Start the app with F5 or the Run button.
+6. If VS Code prompts you to select a debugger, choose the .NET option for the project.
 
 If you see a prompt to create launch configuration, choose the option for launching a local .NET project.
-=======
-## 🖥️ Frontend Interface Features
-
-HIFA frontend is a React + TypeScript + Vite web interface built using Tailwind CSS.
-
-### 1. Training Mode
-- Interactive training dropzone allowing batch folder/file structures.
-- Live console log viewer monitoring training iterations, epochs, loss metrics, and successes.
-
-### 2. Prediction Mode (Local Image Upload & Preview)
-- **Local File Uploads**: Click or drag-and-drop any JPG/PNG image into the **Test Input** container.
-- **Local Preview URL Object**: The app parses your local image file securely using a URL object, displaying an instant, high-performance image preview without uploading to any remote storage first.
-- **Prediction Overlay & Bounding Boxes Viewport**: When you hit "Run Prediction", a scanning laser overlay and visual analysis indicator appear on top of the image in the **Inference Output** panel.
-- **State revoking**: Swapping or removing images automatically resets inference states and revokes memory URLs to avoid memory leaks.
-
-### 🚀 Running the App Locally
-
-To start the Vite development server on your machine:
-```bash
-npm install
-npm run dev
-```
-Open the local server URL (e.g. `http://localhost:5174/`) in your web browser.
->>>>>>> refs/remotes/origin/main
 
 ---
 ## 🛠️ Onboarding: Git & GitHub Setup Guide
