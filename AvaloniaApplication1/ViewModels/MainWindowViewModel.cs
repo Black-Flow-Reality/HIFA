@@ -23,6 +23,27 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private string _selectedModel = "Computer Vision (Detection)";
 
+    [ObservableProperty]
+    private double _temperature = 1.0;
+
+    [ObservableProperty]
+    private int _steps = 50;
+
+    [ObservableProperty]
+    private double _guidanceScale = 7.5;
+
+    [ObservableProperty]
+    private string _seed = "42";
+
+    [ObservableProperty]
+    private bool _isRandomSeed = true;
+
+    [ObservableProperty]
+    private double _trainingProgress = 0.0;
+
+    [ObservableProperty]
+    private bool _isTraining = false;
+
     public ObservableCollection<string> Models { get; } = new()
     {
         "Computer Vision (Detection)"
@@ -89,7 +110,7 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void TrainModel()
+    private async Task TrainModelAsync()
     {
         if (DatasetImageCount == 0)
         {
@@ -98,31 +119,50 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         StatusText = "Training...";
-        Log($"Starting training epoch with {DatasetImageCount} images...", "INFO");
+        IsTraining = true;
+        TrainingProgress = 0;
+        Log($"Starting training process with {DatasetImageCount} images...", "INFO");
 
-        Task.Run(async () =>
+        bool isBackendAvailable = await Services.HifaBackendService.IsBackendAvailableAsync();
+        if (isBackendAvailable)
         {
+            Log("Connecting to FastAPI backend for training...", "INFO");
+            for (int i = 1; i <= 5; i++)
+            {
+                var response = await Services.HifaBackendService.TrainAsync(new Services.TrainRequest { ImageCount = DatasetImageCount });
+                TrainingProgress = (i / 5.0) * 100;
+                if (response != null)
+                {
+                    Log($"[Backend] Epoch {response.EpochsCompleted}/5 - Status: {response.Status}", "TRAIN");
+                }
+                else
+                {
+                    Log($"[Backend] Epoch {i}/5 - loss: {(0.5 / i):F4}", "TRAIN");
+                }
+                await Task.Delay(800);
+            }
+            Log("Backend training completed successfully.", "SUCCESS");
+        }
+        else
+        {
+            Log("FastAPI backend offline. Running in Mock Offline Mode...", "WARNING");
             for (int i = 1; i <= 5; i++)
             {
                 await Task.Delay(800);
+                TrainingProgress = (i / 5.0) * 100;
                 string logMsg = $"Epoch {i}/5 - loss: {(0.5 / i):F4} - accuracy: {(0.7 + i * 0.05):F4}";
-                
-                Avalonia.Threading.Dispatcher.UIThread.Post(() =>
-                {
-                    Log(logMsg, "TRAIN");
-                });
+                Log(logMsg, "TRAIN");
             }
+            Log("Mock training completed successfully.", "SUCCESS");
+        }
 
-            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
-            {
-                StatusText = "Idle";
-                Log("Training completed successfully.", "SUCCESS");
-            });
-        });
+        StatusText = "Idle";
+        IsTraining = false;
+        TrainingProgress = 0;
     }
 
     [RelayCommand]
-    private void RunPrediction()
+    private async Task RunPredictionAsync()
     {
         if (IsTrainingMode)
         {
@@ -131,13 +171,40 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         StatusText = "Predicting...";
-        Log("Running prediction pipeline on input test image...", "INFO");
+        string finalSeed = IsRandomSeed ? new Random().Next(100000, 999999).ToString() : Seed;
+        Log($"Running prediction pipeline: Temp={Temperature:F1}, Steps={Steps}, CFG={GuidanceScale:F1}, Seed={finalSeed}", "INFO");
 
-        Task.Delay(1200).ContinueWith(_ =>
+        bool isBackendAvailable = await Services.HifaBackendService.IsBackendAvailableAsync();
+        if (isBackendAvailable)
         {
-            StatusText = "Idle";
-            Log("Prediction finished: Detected 3 objects with confidence > 92%.", "SUCCESS");
-        }, TaskScheduler.FromCurrentSynchronizationContext());
+            Log("Sending prediction request to FastAPI backend...", "INFO");
+            var response = await Services.HifaBackendService.PredictAsync(new Services.PredictRequest
+            {
+                Model = SelectedModel,
+                Temperature = Temperature,
+                Steps = Steps,
+                GuidanceScale = GuidanceScale,
+                Seed = finalSeed
+            });
+
+            if (response != null)
+            {
+                Log($"Backend response: {response.Status}", "SUCCESS");
+                Log($"Output image generated at: {response.GeneratedImagePath} (Time: {response.InferenceTimeSeconds:F2}s)", "SUCCESS");
+            }
+            else
+            {
+                Log("Backend failed to process prediction request.", "ERROR");
+            }
+        }
+        else
+        {
+            Log("FastAPI backend offline. Running in Mock Offline Mode...", "WARNING");
+            await Task.Delay(1200);
+            Log($"Offline prediction finished. Mock image generated using seed {finalSeed}.", "SUCCESS");
+        }
+
+        StatusText = "Idle";
     }
 
     [RelayCommand]

@@ -8,8 +8,8 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="HIFA INTERFACE"
-        Background="#020617"
-        Foreground="#f1f5f9"
+        Background="#101010"
+        Foreground="#FFFFFF"
         Width="1200" Height="750"
         WindowStartupLocation="CenterScreen">
 
@@ -21,87 +21,130 @@
         <!-- Mode toggler buttons -->
         <Style Selector="Button.mode-btn">
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#94a3b8" />
+            <Setter Property="Foreground" Value="#E8D9B8" />
             <Setter Property="Padding" Value="16,8" />
             <Setter Property="FontSize" Value="13" />
             <Setter Property="FontWeight" Value="Medium" />
         </Style>
         <Style Selector="Button.mode-btn:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#1e293b" />
-            <Setter Property="TextBlock.Foreground" Value="#f1f5f9" />
+            <Setter Property="Background" Value="#101010" />
+            <Setter Property="TextBlock.Foreground" Value="#FFFFFF" />
         </Style>
         <Style Selector="Button.active-mode">
-            <Setter Property="Background" Value="#4f46e5" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#00FFFF" />
+            <Setter Property="Foreground" Value="#101010" />
         </Style>
         <Style Selector="Button.active-mode:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#6366f1" />
-            <Setter Property="TextBlock.Foreground" Value="White" />
+            <Setter Property="Background" Value="#00E5FF" />
+            <Setter Property="TextBlock.Foreground" Value="#101010" />
         </Style>
 
-        <!-- Train button (emerald) -->
+        <!-- Train button (cyan / bright cyan) -->
         <Style Selector="Button.train-btn">
-            <Setter Property="Background" Value="#059669" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#008B8B" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
         <Style Selector="Button.train-btn:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#10b981" />
-            <Setter Property="TextBlock.Foreground" Value="White" />
+            <Setter Property="Background" Value="#00FFFF" />
+            <Setter Property="TextBlock.Foreground" Value="#101010" />
         </Style>
 
-        <!-- Predict button (indigo) -->
+        <!-- Predict button (bright cyan) -->
         <Style Selector="Button.predict-btn">
-            <Setter Property="Background" Value="#4f46e5" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#00FFFF" />
+            <Setter Property="Foreground" Value="#101010" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
         <Style Selector="Button.predict-btn:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#6366f1" />
-            <Setter Property="TextBlock.Foreground" Value="White" />
+            <Setter Property="Background" Value="#00E5FF" />
+            <Setter Property="TextBlock.Foreground" Value="#101010" />
         </Style>
         <Style Selector="Button.predict-btn:disabled /template/ ContentPresenter">
-            <Setter Property="Background" Value="#1e293b" />
-            <Setter Property="TextBlock.Foreground" Value="#475569" />
+            <Setter Property="Background" Value="#101010" />
+            <Setter Property="TextBlock.Foreground" Value="#008B8B" />
         </Style>
     </Window.Styles>
 
     <Grid ColumnDefinitions="260, *, 320">
         <!-- 1. LEFT SIDEBAR: Model & Dataset Management -->
-        <Border Grid.Column="0" Background="#0f172a" BorderBrush="#1e293b" BorderThickness="0,0,1,0" Padding="16">
+        <Border Grid.Column="0" Background="#1F1F1F" BorderBrush="#000000" BorderThickness="0,0,1,0" Padding="16">
             <Grid RowDefinitions="*, Auto">
-                <StackPanel Grid.Row="0" Spacing="24">
+                <StackPanel Grid.Row="0" Spacing="16">
                     <TextBlock Text="HIFA INTERFACE" 
                                FontSize="18" 
                                FontWeight="Bold" 
                                LetterSpacing="1.5" 
-                               Foreground="#818cf8" 
+                               Foreground="#00FFFF" 
                                Margin="0,8,0,0"/>
 
-                    <StackPanel Spacing="16">
+                    <StackPanel Spacing="12">
                         <!-- Active Model select -->
                         <StackPanel Spacing="6">
                             <TextBlock Text="ACTIVE MODEL" 
                                        FontSize="10" 
                                        FontWeight="SemiBold" 
-                                       Foreground="#94a3b8" />
+                                       Foreground="#E8D9B8" />
                             <ComboBox ItemsSource="{Binding Models}" 
                                       SelectedItem="{Binding SelectedModel}" 
                                       HorizontalAlignment="Stretch" 
-                                      Background="#1e293b" 
-                                      BorderBrush="#334155" 
-                                      Foreground="#f1f5f9"
+                                      Background="#101010" 
+                                      BorderBrush="#000000" 
+                                      Foreground="#FFFFFF"
                                       Padding="10,8"
                                       CornerRadius="4" />
                         </StackPanel>
 
                         <!-- Loaded Dataset stats -->
-                        <Border Background="#121b2e" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="6" Padding="12">
+                        <Border Background="#101010" BorderBrush="#000000" BorderThickness="1" CornerRadius="6" Padding="12">
                             <StackPanel Spacing="4">
-                                <TextBlock Text="Loaded Dataset" FontSize="11" Foreground="#94a3b8" />
+                                <TextBlock Text="Loaded Dataset" FontSize="11" Foreground="#E8D9B8" />
                                 <StackPanel Orientation="Horizontal" Spacing="4">
-                                    <TextBlock Text="{Binding DatasetImageCount}" FontSize="18" FontWeight="Medium" Foreground="#f1f5f9" />
-                                    <TextBlock Text=" Images" FontSize="18" FontWeight="Medium" Foreground="#f1f5f9" />
+                                    <TextBlock Text="{Binding DatasetImageCount}" FontSize="18" FontWeight="Medium" Foreground="#FFFFFF" />
+                                    <TextBlock Text=" Images" FontSize="18" FontWeight="Medium" Foreground="#FFFFFF" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- AI Properties Parameters panel -->
+                        <Border Background="#101010" BorderBrush="#000000" BorderThickness="1" CornerRadius="6" Padding="12">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="AI PROPERTIES" FontSize="11" FontWeight="Bold" Foreground="#E8D9B8" LetterSpacing="1" />
+                                
+                                <!-- Temperature Slider -->
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*, Auto">
+                                        <TextBlock Grid.Column="0" Text="Temperature" FontSize="10" Foreground="#E8D9B8" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Temperature, StringFormat={}{0:F1}}" FontSize="10" Foreground="#FFFFFF" FontWeight="SemiBold" />
+                                    </Grid>
+                                    <Slider Minimum="0.1" Maximum="2.0" Value="{Binding Temperature}" SmallChange="0.1" LargeChange="0.2" Foreground="#00FFFF" />
+                                </StackPanel>
+
+                                <!-- Steps Slider -->
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*, Auto">
+                                        <TextBlock Grid.Column="0" Text="Steps" FontSize="10" Foreground="#E8D9B8" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Steps}" FontSize="10" Foreground="#FFFFFF" FontWeight="SemiBold" />
+                                    </Grid>
+                                    <Slider Minimum="10" Maximum="150" Value="{Binding Steps}" SmallChange="1" LargeChange="10" Foreground="#00FFFF" />
+                                </StackPanel>
+
+                                <!-- CFG Scale (Guidance) Slider -->
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnDefinitions="*, Auto">
+                                        <TextBlock Grid.Column="0" Text="CFG Guidance" FontSize="10" Foreground="#E8D9B8" />
+                                        <TextBlock Grid.Column="1" Text="{Binding GuidanceScale, StringFormat={}{0:F1}}" FontSize="10" Foreground="#FFFFFF" FontWeight="SemiBold" />
+                                    </Grid>
+                                    <Slider Minimum="1.0" Maximum="20.0" Value="{Binding GuidanceScale}" SmallChange="0.5" LargeChange="2.0" Foreground="#00FFFF" />
+                                </StackPanel>
+
+                                <!-- Seed input and Random toggle -->
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Seed" FontSize="10" Foreground="#E8D9B8" />
+                                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="6">
+                                        <TextBox Grid.Column="0" Text="{Binding Seed}" IsEnabled="{Binding !IsRandomSeed}" FontSize="11" Height="26" Padding="4,2" Background="#1F1F1F" BorderBrush="#000000" Foreground="#FFFFFF" />
+                                        <CheckBox Grid.Column="1" Content="Random" IsChecked="{Binding IsRandomSeed}" FontSize="10" Foreground="#E8D9B8" />
+                                    </Grid>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -114,16 +157,16 @@
                             Command="{Binding LoadModelCommand}"
                             HorizontalAlignment="Stretch" 
                             HorizontalContentAlignment="Center"
-                            Background="#1e293b" 
-                            BorderBrush="#334155" 
+                            Background="#101010" 
+                            BorderBrush="#000000" 
                             BorderThickness="1"
-                            Foreground="#cbd5e1"
+                            Foreground="#E8D9B8"
                             Padding="12"
                             CornerRadius="4">
                         <Button.Styles>
                             <Style Selector="Button:pointerover /template/ ContentPresenter">
-                                <Setter Property="Background" Value="#334155" />
-                                <Setter Property="TextBlock.Foreground" Value="White" />
+                                <Setter Property="Background" Value="#1F1F1F" />
+                                <Setter Property="TextBlock.Foreground" Value="#FFFFFF" />
                             </Style>
                         </Button.Styles>
                     </Button>
@@ -132,16 +175,16 @@
                             Command="{Binding SaveModelCommand}"
                             HorizontalAlignment="Stretch" 
                             HorizontalContentAlignment="Center"
-                            Background="#1e293b" 
-                            BorderBrush="#334155" 
+                            Background="#101010" 
+                            BorderBrush="#000000" 
                             BorderThickness="1"
-                            Foreground="#cbd5e1"
+                            Foreground="#E8D9B8"
                             Padding="12"
                             CornerRadius="4">
                         <Button.Styles>
                             <Style Selector="Button:pointerover /template/ ContentPresenter">
-                                <Setter Property="Background" Value="#334155" />
-                                <Setter Property="TextBlock.Foreground" Value="White" />
+                                <Setter Property="Background" Value="#1F1F1F" />
+                                <Setter Property="TextBlock.Foreground" Value="#FFFFFF" />
                             </Style>
                         </Button.Styles>
                     </Button>
@@ -150,9 +193,9 @@
         </Border>
 
         <!-- 2. CENTER PANEL: Main Interactive Work Area -->
-        <Grid Grid.Column="1" RowDefinitions="56, *" Background="#020617">
+        <Grid Grid.Column="1" RowDefinitions="56, *" Background="#101010">
             <!-- Mode Toggler Header -->
-            <Border Grid.Row="0" BorderBrush="#1e293b" BorderThickness="0,0,0,1" Padding="20,0" Background="#0b0f19">
+            <Border Grid.Row="0" BorderBrush="#000000" BorderThickness="0,0,0,1" Padding="20,0" Background="#1F1F1F">
                 <Grid ColumnDefinitions="*, Auto">
                     <!-- Mode Buttons -->
                     <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
@@ -171,8 +214,8 @@
 
                     <!-- Status -->
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
-                        <TextBlock Text="Status:" Foreground="#64748b" FontSize="12" FontFamily="Consolas, Courier New, monospace" />
-                        <TextBlock Text="{Binding StatusText}" Foreground="#cbd5e1" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas, Courier New, monospace" />
+                        <TextBlock Text="Status:" Foreground="#E8D9B8" FontSize="12" FontFamily="Consolas, Courier New, monospace" />
+                        <TextBlock Text="{Binding StatusText}" Foreground="#FFFFFF" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas, Courier New, monospace" />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -191,23 +234,23 @@
                         <ControlTemplate>
                             <Grid>
                                 <!-- Dashed background border -->
-                                <Rectangle Stroke="#1e293b" 
+                                <Rectangle Stroke="#008B8B" 
                                            StrokeDashArray="4, 4" 
                                            StrokeThickness="2" 
                                            RadiusX="12" 
                                            RadiusY="12" 
-                                           Fill="#090d1f" />
+                                           Fill="#101010" />
                                 
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
-                                    <TextBlock Text="📁" FontSize="44" HorizontalAlignment="Center" Foreground="#818cf8" />
+                                    <TextBlock Text="📁" FontSize="44" HorizontalAlignment="Center" Foreground="#00FFFF" />
                                     <TextBlock Text="Drag &amp; drop training images here" 
                                                FontSize="15" 
                                                FontWeight="Medium" 
-                                               Foreground="#f1f5f9" 
+                                               Foreground="#FFFFFF" 
                                                HorizontalAlignment="Center" />
                                     <TextBlock Text="Supports PNG, JPG formats (Click to simulate loading)" 
                                                FontSize="12" 
-                                               Foreground="#64748b" 
+                                               Foreground="#E8D9B8" 
                                                HorizontalAlignment="Center" />
                                 </StackPanel>
                             </Grid>
@@ -217,19 +260,19 @@
 
                 <!-- Prediction Mode Split Screen Skeleton -->
                 <Grid IsVisible="{Binding !IsTrainingMode}" ColumnDefinitions="*, *" ColumnSpacing="16">
-                    <Border Grid.Column="0" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="12" Background="#0b0f19">
+                    <Border Grid.Column="0" BorderBrush="#000000" BorderThickness="1" CornerRadius="12" Background="#1F1F1F">
                         <Grid>
                             <TextBlock Text="[ Input Test Image ]" 
-                                       Foreground="#64748b" 
+                                       Foreground="#E8D9B8" 
                                        FontSize="14" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center" />
                         </Grid>
                     </Border>
-                    <Border Grid.Column="1" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="12" Background="#0b0f19">
+                    <Border Grid.Column="1" BorderBrush="#000000" BorderThickness="1" CornerRadius="12" Background="#1F1F1F">
                         <Grid>
                             <TextBlock Text="[ Model Prediction Output ]" 
-                                       Foreground="#64748b" 
+                                       Foreground="#E8D9B8" 
                                        FontSize="14" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center" />
@@ -240,19 +283,23 @@
         </Grid>
 
         <!-- 3. RIGHT PANEL: ML Action Buttons & Terminal Output -->
-        <Border Grid.Column="2" Background="#0b0f19" BorderBrush="#1e293b" BorderThickness="1,0,0,0" Padding="16">
+        <Border Grid.Column="2" Background="#1F1F1F" BorderBrush="#000000" BorderThickness="1,0,0,0" Padding="16">
             <Grid RowDefinitions="*, Auto">
                 <StackPanel Grid.Row="0" Spacing="20">
-                    <TextBlock Text="EXECUTION" FontSize="11" FontWeight="Bold" Foreground="#94a3b8" LetterSpacing="1" Margin="0,8,0,0" />
+                    <TextBlock Text="EXECUTION" FontSize="11" FontWeight="Bold" Foreground="#E8D9B8" LetterSpacing="1" Margin="0,8,0,0" />
                     
-                    <Button Content="▶ Fit / Train Model"
-                            Command="{Binding TrainModelCommand}"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Height="48"
-                            CornerRadius="8"
-                            Classes="train-btn" />
+                    <StackPanel Spacing="6">
+                        <Button Content="▶ Fit / Train Model"
+                                Command="{Binding TrainModelCommand}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Height="48"
+                                CornerRadius="8"
+                                Classes="train-btn" />
+                        <!-- Training Progress Bar -->
+                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding TrainingProgress}" Height="8" CornerRadius="4" Foreground="#00FFFF" Background="#101010" BorderBrush="#000000" IsVisible="{Binding IsTraining}" />
+                    </StackPanel>
                     
                     <Button Content="Run Prediction"
                             Command="{Binding RunPredictionCommand}"
@@ -268,21 +315,21 @@
                 <!-- Mock Terminal Log -->
                 <Grid Grid.Row="1" Height="240" RowDefinitions="36, *" Margin="0,0,0,8">
                     <!-- Console Header -->
-                    <Border Grid.Row="0" Background="#0f172a" BorderBrush="#1e293b" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Padding="12,0">
+                    <Border Grid.Row="0" Background="#1F1F1F" BorderBrush="#000000" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Padding="12,0">
                         <Grid ColumnDefinitions="*, Auto">
-                            <TextBlock Grid.Column="0" Text="Console Output" FontSize="11" Foreground="#94a3b8" VerticalAlignment="Center" FontFamily="Consolas, Courier New, monospace" />
-                            <Ellipse Grid.Column="1" Width="8" Height="8" Fill="#f59e0b" VerticalAlignment="Center" Margin="0,0,4,0" />
+                            <TextBlock Grid.Column="0" Text="Console Output" FontSize="11" Foreground="#E8D9B8" VerticalAlignment="Center" FontFamily="Consolas, Courier New, monospace" />
+                            <Ellipse Grid.Column="1" Width="8" Height="8" Fill="#00FFFF" VerticalAlignment="Center" Margin="0,0,4,0" />
                         </Grid>
                     </Border>
 
                     <!-- Console Body -->
-                    <Border Grid.Row="1" Background="#020617" BorderBrush="#1e293b" BorderThickness="1" CornerRadius="0,0,8,8" Padding="12">
+                    <Border Grid.Row="1" Background="#000000" BorderBrush="#101010" BorderThickness="1" CornerRadius="0,0,8,8" Padding="12">
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding ConsoleLogs}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}" 
-                                                   Foreground="#cbd5e1" 
+                                                   Foreground="#E8D9B8" 
                                                    FontFamily="Consolas, Courier New, monospace" 
                                                    FontSize="11" 
                                                    TextWrapping="Wrap" 
