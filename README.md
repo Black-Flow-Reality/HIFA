@@ -1,6 +1,7 @@
 
 # HIFA
 
+<<<<<<< HEAD
 ## ▶️ Run the Avalonia app
 
 This project is an Avalonia desktop app targeting .NET 10. You can run it in two common ways:
@@ -30,6 +31,30 @@ dotnet run --project AvaloniaApplication1/AvaloniaApplication1.csproj --no-build
 5. If VS Code prompts you to select a debugger, choose the .NET option for the project.
 
 If you see a prompt to create launch configuration, choose the option for launching a local .NET project.
+=======
+## 🖥️ Frontend Interface Features
+
+HIFA frontend is a React + TypeScript + Vite web interface built using Tailwind CSS.
+
+### 1. Training Mode
+- Interactive training dropzone allowing batch folder/file structures.
+- Live console log viewer monitoring training iterations, epochs, loss metrics, and successes.
+
+### 2. Prediction Mode (Local Image Upload & Preview)
+- **Local File Uploads**: Click or drag-and-drop any JPG/PNG image into the **Test Input** container.
+- **Local Preview URL Object**: The app parses your local image file securely using a URL object, displaying an instant, high-performance image preview without uploading to any remote storage first.
+- **Prediction Overlay & Bounding Boxes Viewport**: When you hit "Run Prediction", a scanning laser overlay and visual analysis indicator appear on top of the image in the **Inference Output** panel.
+- **State revoking**: Swapping or removing images automatically resets inference states and revokes memory URLs to avoid memory leaks.
+
+### 🚀 Running the App Locally
+
+To start the Vite development server on your machine:
+```bash
+npm install
+npm run dev
+```
+Open the local server URL (e.g. `http://localhost:5174/`) in your web browser.
+>>>>>>> refs/remotes/origin/main
 
 ---
 ## 🛠️ Onboarding: Git & GitHub Setup Guide
