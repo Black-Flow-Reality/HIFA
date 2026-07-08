@@ -7,7 +7,7 @@ HIFA is platform where users can create their own AI-GEN image models. This need
 HIFA front-end is currently running on the Avalonia based on .NET 10 by Microsoft. 
 
 
-Before reading the guide below, please read and download [Avalonia][https://docs.avaloniaui.net/docs/get-started/install-avalonia] from the documentation/guide. 
+Before reading the guide below, please read and download [Avalonia](https://docs.avaloniaui.net/docs/get-started/install-avalonia) from the documentation/guide. 
 
 ## ▶️ Run the Avalonia app
 
